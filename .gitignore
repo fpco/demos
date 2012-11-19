@@ -5,3 +5,4 @@ cabal-dev
 *.chi
 *.chs.h
 .virthualenv
+client_session_key.aes
