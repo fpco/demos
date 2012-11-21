@@ -11,12 +11,15 @@ $(function() {
   // Reset. Fetch the world json again and start playing
   Simulation.Server.prototype.reset = function(worldName) {
     var self = this;
-    // Pause simulation while we fetch world info
-    this.pause();
+    // Pause the simulation while we fetch world info
+    self.pause();
     // Get the World description
     var worldUrl = Simulation.urls[worldName];
     if(worldUrl) {
-      $.getJSON(worldUrl).success(function(world){
+      self.ajaxGet(worldUrl, function(world) {
+        // The Play button may have been pressed while we
+        // were fetching the world information
+        self.pause();
         // Store the world description
         self.setWorld(world);
         // Play simulation
@@ -42,8 +45,31 @@ $(function() {
 
   // Pause the simulation
   Simulation.Server.prototype.pause = function() {
+    this.stopAjax();
     this.running = false;
     clearTimeout(this.timer);
+    this.timer = null;
+  };
+
+  // AJAX REQUESTS
+  // Get JSON from the server
+  Simulation.Server.prototype.ajaxGet = function(url, success) {
+    this.stopAjax();
+    self.xhr = $.getJSON(url).success(success);
+  };
+
+  // Post JSON to the server
+  Simulation.Server.prototype.ajaxPost = function(opts, success) {
+    this.stopAjax();
+    self.xhr = $.ajax(opts).success(success);
+  };
+
+  // Stop any XHR requests
+  Simulation.Server.prototype.stopAjax = function() {
+    if(self.xhr) {
+      self.xhr.abort();
+      self.xhr = null;
+    }
   };
 
   // Toggle the simulation
@@ -59,11 +85,11 @@ $(function() {
     var self = this;
     // Save bandwidth by not sending bhtree back
     self.world.bhTree = null;
-    $.ajax({
+    self.ajaxPost({
       "data"    : JSON.stringify(self.world),
       "type"    : "POST",
       "url"     : Simulation.advanceUrl
-    }).success(function(newWorld) {
+    }, function(newWorld) {
       // We got new world data to render
       // Render it on screen
       self.world = newWorld;
@@ -79,7 +105,10 @@ $(function() {
         // Set the startTime for the next frame of the simulation
         self.startTime = new Date();
         // Set the timeout
-        self.timer = setTimeout(function(){self.step();}, 1000/Simulation.fps);
+        self.timer = setTimeout(function(){
+          self.timer=null;
+          self.step();
+        }, 1000/Simulation.fps);
       }
     });
   };
