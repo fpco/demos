@@ -70,11 +70,11 @@ solarWorld = World 0 distanceScale (earthMass / 10000) (750*750)
     distanceScale = (fromIntegral height * 0.4) / earthDistance
 
 world4 :: World
-world4 = World 0 5e10 9.42590890872e11 1000
-               [ Particle (Mass 1e16) (Pos (-100e9) 30e9) (Vel 0 (-65))
-               , Particle (Mass 1e16) (Pos 240e9 0)     (Vel (-40) 30)
-               , Particle (Mass 1e16) (Pos 50e9 200e9)    (Vel 0 (-30))
-               , Particle (Mass 1e15) (Pos 0 (-300e9))  (Vel 0 5)]
+world4 = World 0 0.5 9.42590890872e11 1
+               [ Particle (Mass 1e16) (Pos (-100) 30) (Vel 0 (-65))
+               , Particle (Mass 1e16) (Pos 240 0)     (Vel (-40) 30)
+               , Particle (Mass 1e16) (Pos 50 200)    (Vel 0 (-30))
+               , Particle (Mass 1e15) (Pos 0 (-300))  (Vel 0 5)]
                Nothing
 
 galaxyWorld :: World
