@@ -110,7 +110,7 @@ getHomeR = defaultLayout $ do
     Simulation.advanceUrl = "@{AdvanceR}";
 
     // The desired fps
-    Simulation.fps = #{show framesPerS};
+    Simulation.fps = #{toJSON framesPerS};
 
     // map from simulation names to urls
     Simulation.urls =
