@@ -55,20 +55,20 @@ $(function() {
   // Get JSON from the server
   Simulation.Server.prototype.ajaxGet = function(url, success) {
     this.stopAjax();
-    self.xhr = $.getJSON(url).success(success);
+    this.xhr = $.getJSON(url).success(success);
   };
 
   // Post JSON to the server
   Simulation.Server.prototype.ajaxPost = function(opts, success) {
     this.stopAjax();
-    self.xhr = $.ajax(opts).success(success);
+    this.xhr = $.ajax(opts).success(success);
   };
 
   // Stop any XHR requests
   Simulation.Server.prototype.stopAjax = function() {
-    if(self.xhr) {
-      self.xhr.abort();
-      self.xhr = null;
+    if(this.xhr) {
+      this.xhr.abort();
+      this.xhr = null;
     }
   };
 
