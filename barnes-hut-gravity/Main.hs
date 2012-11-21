@@ -13,9 +13,7 @@ import WorldDefs
 import Simulation (advanceWorld)
 
 -- to do:
--- add Pause button
 -- set maximum time for simulation
--- make curWorld a local variable
 
 data Gravity = Gravity
 
