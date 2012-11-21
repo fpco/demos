@@ -86,7 +86,7 @@ galaxyWorld = World 0 distanceScale (mass/10000) 750 particles Nothing
     particles = [ Particle (Mass sunMass) (Pos 0 0) (Vel 0 0) ] ++ particles'
     particles' = map makePart [Pos (x*distance) (y*distance) | x <- [-3..3], y <- [-3..3], (x,y) /= (0,0)]
     makePart p = Particle (Mass mass) p (startVel 380 p)
-    distanceScale = (fromIntegral height * 0.05) / distance
+    distanceScale = (fromIntegral height * 0.005) / distance
     -- | Get the starting velocity of a body.
     --   It is set to rotate around the origin, with the speed proportional
     --   to the sqrt of the distance from it. This seems to make nice simulations.

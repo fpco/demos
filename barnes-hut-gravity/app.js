@@ -252,7 +252,8 @@ $(function() {
     // Draw BHTree
     if (this.showtree && world.bhTree !== null) {
       this.ctx.fillStyle = "rgba(32, 45, 21, 0.3)";
-      this.ctx.strokeStyle = "rgba(255, 93, 48, 0.8)";
+      this.ctx.strokeStyle = "rgba(50, 100, 50, 0.8)";
+      this.ctx.lineWidth = 1;
       drawTree(this.ctx, world.bhTree, world.pixInM, world.pixInKg, this.dim);
     }
 
