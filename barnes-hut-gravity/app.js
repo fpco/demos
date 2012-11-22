@@ -93,13 +93,11 @@ $(function() {
       // We got new world data to render
       // Render it on screen
       self.world = newWorld;
-      self.callback(self.world);
       // Note the time when we finished processing this frame
       //  (inclusive of timer, fetching data, and rendering)
       //  and calculate the actual FPS
       if(self.startTime) self.actualFps = Math.round(1000/((new Date())-self.startTime));
       else self.actualFps = 0;
-      self.callbackFps(self.actualFps);
       // If we are still running
       if(self.running) {
         // Set the startTime for the next frame of the simulation
@@ -109,6 +107,9 @@ $(function() {
           self.timer=null;
           self.step();
         }, 1000/Simulation.fps);
+        // Render
+        self.callback(self.world);
+        self.callbackFps(self.actualFps);
       }
     });
   };
